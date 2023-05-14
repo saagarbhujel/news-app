@@ -3,12 +3,14 @@ import NewsItems from "./NewsItems";
 import axios from "axios";
 // import PropTypes from "prop-types";
 
-const NewsComp = ({ pageSize }) => {
+const NewsComp = ({category}) => {
   const [articles, setArticle] = useState([]);
+  let pageSize = 12;
+
 
   const fetchArticle = async () => {
     const postData = await axios.get(
-      `https://newsapi.org/v2/top-headlines?country=us&category=science&apiKey=2e3ca7aaebd54af29bff4e9588109119&page=1&pageSize=${pageSize}`
+      `https://newsapi.org/v2/top-headlines?country=us&category=${category}&apiKey=2e3ca7aaebd54af29bff4e9588109119&page=1&pageSize=${pageSize}`
       //
       //    {
       //   headers: {
