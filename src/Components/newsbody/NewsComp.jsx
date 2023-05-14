@@ -7,6 +7,9 @@ const NewsComp = ({category,country}) => {
   const [articles, setArticle] = useState([]);
   let pageSize = 12;
 
+  const capitalizeFirstLowercaseRest = (str) => {
+    return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
+  };
 
   const fetchArticle = async () => {
     const postData = await axios.get(
@@ -28,8 +31,7 @@ const NewsComp = ({category,country}) => {
   return (
     <>
       <h1 className="text-center">
-        Taza Khabar - Popular News on 
-        {/* {this.capitalizeFirstLowercaseRest(this.props.category)} */}
+        Taza Khabar - Popular News on {capitalizeFirstLowercaseRest(category)}
       </h1>
       <div className="container ">
         <div className="row">
