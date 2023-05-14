@@ -4,7 +4,7 @@ import NewsComp from '../newsbody/NewsComp';
 const Sports = ({ pageSize }) => {
   return (
     <>
-      <div>Sports</div>
+
 
       <NewsComp
         pageSize={pageSize}

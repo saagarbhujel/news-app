@@ -5,7 +5,7 @@ import NewsComp from "../newsbody/NewsComp";
 const Entertainment = ({ pageSize }) => {
   return (
     <>
-      <div>Entertainment</div>
+
 
       <NewsComp
         pageSize={pageSize}

@@ -5,7 +5,7 @@ import NewsComp from "../newsbody/NewsComp";
 const General = ({ pageSize }) => {
   return (
     <>
-      <div>General</div>
+
 
       <NewsComp
         pageSize={pageSize}

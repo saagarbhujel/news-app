@@ -3,14 +3,14 @@ import NewsItems from "./NewsItems";
 import axios from "axios";
 // import PropTypes from "prop-types";
 
-const NewsComp = ({category}) => {
+const NewsComp = ({category,country}) => {
   const [articles, setArticle] = useState([]);
   let pageSize = 12;
 
 
   const fetchArticle = async () => {
     const postData = await axios.get(
-      `https://newsapi.org/v2/top-headlines?country=us&category=${category}&apiKey=2e3ca7aaebd54af29bff4e9588109119&page=1&pageSize=${pageSize}`
+      `https://newsapi.org/v2/top-headlines?country=${country}&category=${category}&apiKey=2e3ca7aaebd54af29bff4e9588109119&page=1&pageSize=${pageSize}`
       //
       //    {
       //   headers: {
@@ -27,6 +27,10 @@ const NewsComp = ({category}) => {
   }, []);
   return (
     <>
+      <h1 className="text-center">
+        Taza Khabar - Popular News on 
+        {/* {this.capitalizeFirstLowercaseRest(this.props.category)} */}
+      </h1>
       <div className="container ">
         <div className="row">
           {articles.map((e, index) => {
