@@ -2,18 +2,27 @@ import React, { useEffect, useState } from "react";
 import NewsItems from "./NewsItems";
 import axios from "axios";
 // import PropTypes from "prop-types";
+import InfiniteScroll from "react-infinite-scroll-component";
+import Spinner from "../Spinner";
+import PropTypes from "prop-types";
 
-const NewsComp = ({category,country}) => {
+const NewsComp = ({category,country,pageSize}) => {
   const [articles, setArticle] = useState([]);
-  let pageSize = 12;
+
+  const [totalResults, setTotalResults] = useState(0)
+  const [loading, setLoading] = useState(true)
+  const [page,setPage] = useState(1)
+
 
   const capitalizeFirstLowercaseRest = (str) => {
     return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
   };
 
   const fetchArticle = async () => {
+    setLoading(true)
     const postData = await axios.get(
-      `https://newsapi.org/v2/top-headlines?country=${country}&category=${category}&apiKey=2e3ca7aaebd54af29bff4e9588109119&page=1&pageSize=${pageSize}`
+      `https://newsapi.org/v2/top-headlines?country=${country}&category=${category}&apiKey=2e3ca7aaebd54af29bff4e9588109119&page=${page}&pageSize=${pageSize}`
+      
       //
       //    {
       //   headers: {
@@ -22,54 +31,80 @@ const NewsComp = ({category,country}) => {
       //   }
     );
     setArticle(postData.data.articles);
-    console.log(postData.data);
+    // console.log(postData.data);
+    setLoading(false)
+    setTotalResults(postData.totalResults)
   };
 
   useEffect(() => {
     fetchArticle();
   }, []);
+
+  const fetchMoreArticle = async ()=>{
+    setPage(page+1)
+    setLoading(true)
+     const postData = await axios.get(
+      `https://newsapi.org/v2/top-headlines?country=${country}&category=${category}&apiKey=2e3ca7aaebd54af29bff4e9588109119&page=${page}&pageSize=${pageSize}`
+
+    );
+      setArticle(articles.concat(postData.data.articles))
+      console.log(postData.data)
+      setLoading(false)
+      setTotalResults(postData.totalResults)
+  }
   return (
     <>
       <h1 className="text-center">
         Taza Khabar - Popular News on {capitalizeFirstLowercaseRest(category)}
       </h1>
-      <div className="container ">
-        <div className="row">
-          {articles.map((e, index) => {
-            return (
-              <div className="col-md-3 my-4" key={index}>
-                <NewsItems
-                  title={e.title ? e.title.slice(0, 40) : ""}
-                  description={e.description ? e.description.slice(0, 75) : ""}
-                  newsUrl={e.url}
-                  imgUrl={
-                    e.urlToImage
-                      ? e.urlToImage
-                      : "https://techcrunch.com/wp-content/uploads/2023/04/GettyImages-1367534680.jpg?resize=1200,765"
-                  }
-                  author={e.author}
-                  date={e.publishedAt}
-                  source={e.source.name}
-                />
-              </div>
-            );
-          })}
+      {loading && <Spinner />}
+      <InfiniteScroll
+        dataLength={articles.length}
+        next={fetchMoreArticle}
+        hasMore={articles.length !== totalResults}
+        loader={loading && <Spinner />}
+        keyExtractor={(article) => article.url}
+      >
+        <div className="container ">
+          <div className="row">
+            {articles.map((e, index) => {
+              return (
+                <div className="col-md-3 my-4" key={index}>
+                  <NewsItems
+                    title={e.title ? e.title.slice(0, 40) : ""}
+                    description={
+                      e.description ? e.description.slice(0, 75) : ""
+                    }
+                    newsUrl={e.url}
+                    imgUrl={
+                      e.urlToImage
+                        ? e.urlToImage
+                        : "https://techcrunch.com/wp-content/uploads/2023/04/GettyImages-1367534680.jpg?resize=1200,765"
+                    }
+                    author={e.author}
+                    date={e.publishedAt}
+                    // source={e.source.name}
+                  />
+                </div>
+              );
+            })}
+          </div>
         </div>
-      </div>
+      </InfiniteScroll>
     </>
   );
 };
 
-// NewsComp.defaultProps = {
-//     country: "in",
-//     pageSize: "8",
-//     category: "general",
-//   };
+NewsComp.defaultProps = {
+    country: "in",
+    pageSize: "12",
+    category: "general",
+  };
 
-//  NewsComp.propTypes = {
-//     country: PropTypes.string,
-//     pageSize: PropTypes.number,
-//     category: PropTypes.string,
-//   };
+ NewsComp.propTypes = {
+    country: PropTypes.string,
+    pageSize: PropTypes.number,
+    category: PropTypes.string,
+  };
 
 export default NewsComp;
