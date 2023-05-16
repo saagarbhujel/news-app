@@ -2,16 +2,15 @@ import React from 'react'
 import NewsComp from "../newsbody/NewsComp";
 
 
-const Science = ({ pageSize }) => {
+const Science = ({ pageSize, setProgress }) => {
   return (
     <>
-
-
       <NewsComp
         pageSize={pageSize}
         key="science"
         country="us"
         category="science"
+        setProgress={setProgress}
       />
     </>
   );

@@ -6,7 +6,7 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import Spinner from "../Spinner";
 import PropTypes from "prop-types";
 
-const NewsComp = ({category,country,pageSize}) => {
+const NewsComp = ({category,country,pageSize,setProgress}) => {
   const [articles, setArticle] = useState([]);
 
   const [totalResults, setTotalResults] = useState(0)
@@ -20,6 +20,8 @@ const NewsComp = ({category,country,pageSize}) => {
 
   const fetchArticle = async () => {
     setLoading(true)
+    setProgress(30)
+
     const postData = await axios.get(
       `https://newsapi.org/v2/top-headlines?country=${country}&category=${category}&apiKey=2e3ca7aaebd54af29bff4e9588109119&page=${page}&pageSize=${pageSize}`
       
@@ -29,12 +31,15 @@ const NewsComp = ({category,country,pageSize}) => {
       //       apiKey: "2e3ca7aaebd54af29bff4e9588109119",
       //     },
       //   }
-    );
+      );
+      setProgress(70)
     setArticle(postData.data.articles);
     // console.log(postData.data);
     setLoading(false)
     setTotalResults(postData.totalResults)
+    setProgress(100)
   };
+
 
   useEffect(() => {
     fetchArticle();
@@ -51,6 +56,7 @@ const NewsComp = ({category,country,pageSize}) => {
       console.log(postData.data)
       setLoading(false)
       setTotalResults(postData.totalResults)
+      // setProgress(100)
   }
   return (
     <>
@@ -103,7 +109,7 @@ NewsComp.defaultProps = {
 
  NewsComp.propTypes = {
     country: PropTypes.string,
-    pageSize: PropTypes.number,
+    pageSize: PropTypes.string,
     category: PropTypes.string,
   };
 

@@ -12,36 +12,67 @@ import Health from './Components/category/Health'
 import Science from "./Components/category/Science";
 import Sports from "./Components/category/Sports";
 import Technology from "./Components/category/Technology";
-
+import LoadingBar from "react-top-loading-bar";
 
 
 
 function App() {
-  const [count, setCount] = useState(0)
-  let pageSize = 12;
+  const [progress, setProgress] = useState(0)
+  // let pageSize = 12;
+
+
+  
   return (
-      <BrowserRouter>
-    <>
-      <NavBar />
+    <BrowserRouter>
+      <>
+        <LoadingBar color="#f11946" progress={progress} height={3} />
+        <NavBar />
 
         <Routes>
-          
-            <Route exact path="/" index element={<Home />}></Route>
-            <Route path="/business" index element={<Business />}></Route>
-            <Route
-              path="/entertainment"
-              index
-              element={<Entertainment />}
-            ></Route>
-            <Route path="/general" index element={<General />}></Route>
-            <Route path="/health" index element={<Health />}></Route>
-            <Route path="/science" index element={<Science />}></Route>
-            <Route path="/sports" index element={<Sports />}></Route>
-            <Route path="/technology" index element={<Technology />}></Route>
-         
+          <Route
+            exact
+            path="/"
+            index
+            element={<Home setProgress={setProgress} />}
+          ></Route>
+          <Route
+            path="/business"
+            index
+            element={<Business setProgress={setProgress} />}
+          ></Route>
+          <Route
+            path="/entertainment"
+            index
+            element={<Entertainment setProgress={setProgress} />}
+          ></Route>
+          <Route
+            path="/general"
+            index
+            element={<General setProgress={setProgress} />}
+          ></Route>
+          <Route
+            path="/health"
+            index
+            element={<Health setProgress={setProgress} />}
+          ></Route>
+          <Route
+            path="/science"
+            index
+            element={<Science setProgress={setProgress} />}
+          ></Route>
+          <Route
+            path="/sports"
+            index
+            element={<Sports setProgress={setProgress} />}
+          ></Route>
+          <Route
+            path="/technology"
+            index
+            element={<Technology setProgress={setProgress} />}
+          ></Route>
         </Routes>
-    </>
-      </BrowserRouter>
+      </>
+    </BrowserRouter>
   );
 }
 
