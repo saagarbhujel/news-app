@@ -7,9 +7,9 @@ import { NavLink } from "react-router-dom";
 const NavBar = () => {
   return (
     <>
-      <Navbar bg="dark" expand="lg" className="navbar navbar-dark">
+      <Navbar bg="dark" expand="lg" className="navbar navbar-dark fixed-top" >
         <Container>
-          <Navbar.Brand href="#home">React-Bootstrap</Navbar.Brand>
+          <Navbar.Brand href="#home">TazaKhabar</Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">

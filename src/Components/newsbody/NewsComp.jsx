@@ -60,7 +60,7 @@ const NewsComp = ({category,country,pageSize,setProgress}) => {
   }
   return (
     <>
-      <h1 className="text-center">
+      <h1 className="text-center" style={{marginTop: "4.5rem"}}>
         Taza Khabar - Popular News on {capitalizeFirstLowercaseRest(category)}
       </h1>
       {loading && <Spinner />}
