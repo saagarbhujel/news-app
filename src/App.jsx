@@ -2,7 +2,7 @@ import { useState } from 'react'
 import "bootstrap/dist/css/bootstrap.min.css";
 import './App.css'
 import NavBar from './Components/navbar/Navbar';
-import NewsComp from './Components/newsbody/NewsComp';
+// import NewsComp from './Components/newsbody/NewsComp';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from './Components/category/Home';
 import Business from './Components/category/Business'

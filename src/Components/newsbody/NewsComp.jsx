@@ -53,7 +53,7 @@ const NewsComp = ({category,country,pageSize,setProgress}) => {
 
     );
       setArticle(articles.concat(postData.data.articles))
-      console.log(postData.data)
+      // console.log(postData.data)
       setLoading(false)
       setTotalResults(postData.totalResults)
       // setProgress(100)
